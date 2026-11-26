@@ -3,7 +3,12 @@
 #include <asm/ptrace.h>
 #include <linux/types.h>
 
+#ifdef CONFIG_KSU_SUSFS
+#include <linux/jump_label.h>
+extern struct static_key_true ksu_su_compat_enabled;
+#else
 extern bool ksu_su_compat_enabled;
+#endif
 
 #ifdef CONFIG_KSU_SUSFS
 int ksu_handle_faccessat(int *dfd, struct filename **filename, int *mode, int *__unused_flags);
